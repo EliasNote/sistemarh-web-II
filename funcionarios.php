@@ -62,7 +62,7 @@ $funcionarios = [
             <tbody>
                 <?php foreach ($funcionarios as $funcionario): ?>
                     <tr>
-                        <td><?= htmlspecialchars((string) $funcionario['id']) ?></td>
+                        <td><?= htmlspecialchars($funcionario['id']) ?></td>
                         <td><?= htmlspecialchars($funcionario['nome']) ?></td>
                         <td><?= htmlspecialchars($funcionario['cargo']) ?></td>
                         <td><?= htmlspecialchars($funcionario['setor']) ?></td>

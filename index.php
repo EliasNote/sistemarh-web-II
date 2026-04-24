@@ -1,6 +1,6 @@
 <?php
 
-$aba_atual = "funcionarios";
+$id = $_GET['id'] ?? '';
 
 ?>
 <!DOCTYPE html>
@@ -14,22 +14,24 @@ $aba_atual = "funcionarios";
 <body>
     <div class="layout">
         <aside class="sidebar">
-            <div class="sidebar__brand">
-                <h1>Sistema RH</h1>
-                <p>Painel Administrativo</p>
-            </div>
+            <a href="/" class="sidebar__brand" style="text-decoration: none; color: inherit;">
+                <h1 style="margin: 0;">Sistema RH</h1>
+                <p style="margin: 4px 0 20px;">Painel Administrativo</p>
+            </a>
 
             <nav class="sidebar__nav" aria-label="Menu principal">
-                <a href="#" class="sidebar__link active">Funcionários</a>
-                <a href="#" class="sidebar__link">Cargos</a>
-                <a href="#" class="sidebar__link">Férias</a>
-                <a href="#" class="sidebar__link">Folha (Simulação)</a>
-                <a href="#" class="sidebar__link">Sair</a>
+                <a href="?id=funcionarios" class="sidebar__link <?= $id == 'funcionarios' ? 'active' : '' ?>">Funcionários</a>
+                <a href="?id=cargos" class="sidebar__link <?= $id == 'cargos' ? 'active' : '' ?>">Cargos</a>
+                <a href="?id=ferias" class="sidebar__link <?= $id == 'ferias' ? 'active' : '' ?>">Férias</a>
+                <a href="?id=folha" class="sidebar__link <?= $id == 'folha' ? 'active' : '' ?>">Folha (Simulação)</a>
+                <a href="/login.php" class="sidebar__link <?= $id == 'sair' ? 'active' : '' ?>">Sair</a>
             </nav>
         </aside>
 
         <main class="content">
-            <?php include 'funcionarios.php'?>
+            <?php
+                if ($id === 'funcionarios') include 'funcionarios.php';
+            ?>
         </main>
     </div>
 </body>
