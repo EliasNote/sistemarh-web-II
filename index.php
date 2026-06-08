@@ -21,7 +21,7 @@ $id = $_GET['id'] ?? 'funcionarios';
             <nav class="sidebar__nav" aria-label="Menu principal">
                 <a href="?id=funcionarios" class="sidebar__link <?= in_array($id, ['funcionarios', 'funcionario_cadastro', 'funcionario_editar']) ? 'active' : '' ?>">Funcionários</a>
                 <a href="?id=cargos" class="sidebar__link <?= in_array($id, ['cargos', 'cargo_cadastro', 'cargo_editar']) ? 'active' : '' ?>">Cargos</a>
-                <a href="?id=ferias" class="sidebar__link <?= $id == 'ferias' ? 'active' : '' ?>">Férias</a>
+                <a href="?id=ferias" class="sidebar__link <?= in_array($id, ['ferias', 'ferias_cadastro', 'ferias_editar']) ? 'active' : '' ?>">Férias</a>
                 <a href="?id=folha" class="sidebar__link <?= $id == 'folha' ? 'active' : '' ?>">Folha (Simulação)</a>
                 <a href="login.php" class="sidebar__link">Sair</a>
             </nav>
@@ -38,6 +38,11 @@ $id = $_GET['id'] ?? 'funcionarios';
                 elseif ($id === 'cargo_cadastro') include 'cargo_cadastro.php';
                 elseif ($id === 'cargo_editar') include 'cargo_editar.php';
                 elseif ($id === 'cargo_excluir') include 'cargo_excluir.php';
+
+                elseif ($id === 'ferias') include 'ferias.php';
+                elseif ($id === 'ferias_cadastro') include 'ferias_cadastro.php';
+                elseif ($id === 'ferias_editar') include 'ferias_editar.php';
+                elseif ($id === 'ferias_excluir') include 'ferias_excluir.php';
             ?>
         </main>
     </div>
