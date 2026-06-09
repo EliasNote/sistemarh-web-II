@@ -3,17 +3,17 @@ require_once 'conexao.php';
 $erro = '';
 $registro_id = $_GET['registro'] ?? '';
 
-// Processa a atualização
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $nome = $_POST['nome'] ?? '';
     $cargo_id = $_POST['cargo_id'] ?? '';
+    $salario_base = $_POST['salario_base'] ?? '';
     $setor = $_POST['setor'] ?? '';
     $data_contratacao = $_POST['data_contratacao'] ?? '';
     $status = $_POST['status'] ?? 'Ativo';
 
-    if (!empty($nome) && !empty($cargo_id) && !empty($setor) && !empty($data_contratacao)) {
-        $stmt = $conn->prepare("UPDATE funcionarios SET nome=?, cargo_id=?, setor=?, data_contratacao=?, status=? WHERE id=?");
-        $stmt->bind_param("sisssi", $nome, $cargo_id, $setor, $data_contratacao, $status, $registro_id);
+    if (!empty($nome) && !empty($cargo_id) && !empty($salario_base) && !empty($setor) && !empty($data_contratacao)) {
+        $stmt = $conn->prepare("UPDATE funcionarios SET nome=?, cargo_id=?, salario_base=?, setor=?, data_contratacao=?, status=? WHERE id=?");
+        $stmt->bind_param("sidsssi", $nome, $cargo_id, $salario_base, $setor, $data_contratacao, $status, $registro_id);
 
         if ($stmt->execute()) {
             header("Location: index.php?id=funcionarios");
@@ -27,10 +27,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 }
 
-// Busca cargos
 $cargos = $conn->query("SELECT id, nome FROM cargos ORDER BY nome ASC")->fetch_all(MYSQLI_ASSOC);
 
-// Busca dados atuais do funcionário
 $stmt = $conn->prepare("SELECT * FROM funcionarios WHERE id = ?");
 $stmt->bind_param("i", $registro_id);
 $stmt->execute();
@@ -70,6 +68,11 @@ if (!$funcionario) {
                     </option>
                 <?php endforeach; ?>
             </select>
+        </div>
+
+        <div style="margin-bottom: 16px;">
+            <label style="display: block; margin-bottom: 6px; font-weight: 600;">Salário Base (R$)</label>
+            <input type="number" step="0.01" name="salario_base" value="<?= htmlspecialchars($funcionario['salario_base']) ?>" required style="width: 100%; padding: 9px 12px; border: 1px solid var(--line); border-radius: 8px; box-sizing: border-box;">
         </div>
 
         <div style="margin-bottom: 16px;">

@@ -2,19 +2,20 @@
 require_once 'conexao.php';
 $erro = '';
 
-$resultado_cargos = $conn->query("SELECT id, nome FROM cargos ORDER BY nome ASC");
+$resultado_cargos = $conn->query("SELECT id, nome, salario_base FROM cargos ORDER BY nome ASC");
 $cargos = $resultado_cargos ? $resultado_cargos->fetch_all(MYSQLI_ASSOC) : [];
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $nome = $_POST['nome'] ?? '';
     $cargo_id = $_POST['cargo_id'] ?? '';
+    $salario_base = $_POST['salario_base'] ?? '';
     $setor = $_POST['setor'] ?? '';
     $data_contratacao = $_POST['data_contratacao'] ?? '';
     $status = $_POST['status'] ?? 'Ativo';
 
-    if (!empty($nome) && !empty($cargo_id) && !empty($setor) && !empty($data_contratacao)) {
-        $stmt = $conn->prepare("INSERT INTO funcionarios (nome, cargo_id, setor, data_contratacao, status) VALUES (?, ?, ?, ?, ?)");
-        $stmt->bind_param("sisss", $nome, $cargo_id, $setor, $data_contratacao, $status);
+    if (!empty($nome) && !empty($cargo_id) && !empty($salario_base) && !empty($setor) && !empty($data_contratacao)) {
+        $stmt = $conn->prepare("INSERT INTO funcionarios (nome, cargo_id, salario_base, setor, data_contratacao, status) VALUES (?, ?, ?, ?, ?, ?)");
+        $stmt->bind_param("sidsss", $nome, $cargo_id, $salario_base, $setor, $data_contratacao, $status);
 
         if ($stmt->execute()) {
             header("Location: index.php?id=funcionarios");
@@ -49,12 +50,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         <div style="margin-bottom: 16px;">
             <label style="display: block; margin-bottom: 6px; font-weight: 600;">Cargo</label>
-            <select name="cargo_id" required style="width: 100%; padding: 9px 12px; border: 1px solid var(--line); border-radius: 8px; box-sizing: border-box;">
+            <select name="cargo_id" id="cargo_id" required onchange="aplicarSalarioSugerido()" style="width: 100%; padding: 9px 12px; border: 1px solid var(--line); border-radius: 8px; box-sizing: border-box;">
                 <option value="">Selecione um cargo...</option>
                 <?php foreach ($cargos as $cargo): ?>
-                    <option value="<?= htmlspecialchars($cargo['id']) ?>"><?= htmlspecialchars($cargo['nome']) ?></option>
+                    <option value="<?= htmlspecialchars($cargo['id']) ?>" data-sugestao="<?= htmlspecialchars($cargo['salario_base']) ?>">
+                        <?= htmlspecialchars($cargo['nome']) ?>
+                    </option>
                 <?php endforeach; ?>
             </select>
+        </div>
+
+        <div style="margin-bottom: 16px;">
+            <label style="display: block; margin-bottom: 6px; font-weight: 600;">Salário Base (R$)</label>
+            <input type="number" step="0.01" name="salario_base" id="salario_base" required style="width: 100%; padding: 9px 12px; border: 1px solid var(--line); border-radius: 8px; box-sizing: border-box;">
         </div>
 
         <div style="margin-bottom: 16px;">
@@ -78,3 +86,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <button type="submit" class="btn-primary">Salvar Cadastro</button>
     </form>
 </section>
+
+<script>
+function aplicarSalarioSugerido() {
+    const select = document.getElementById('cargo_id');
+    const option = select.options[select.selectedIndex];
+    const sugestao = option.getAttribute('data-sugestao');
+    if (sugestao) {
+        document.getElementById('salario_base').value = parseFloat(sugestao).toFixed(2);
+    }
+}
+</script>
