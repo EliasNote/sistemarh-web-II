@@ -16,7 +16,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if ($usuario === $admin['nome'] && $senha === $admin['senha']) {
         $_SESSION['logado'] = true;
         $_SESSION['usuario_id'] = $admin['id'];
-        header('Location: index.php');
+        header('Location: ../index.php');
         exit;
     } else {
         $erro = 'Usuário ou senha incorretos.';
@@ -45,7 +45,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 </div>
             <?php endif; ?>
 
-            <form action="login.php" method="POST">
+            <form action="" method="POST">
                 <div class="form-group">
                     <label for="usuario">Usuário</label>
                     <input type="text" id="usuario" name="usuario" placeholder="Digite seu usuário" required autofocus>

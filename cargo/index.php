@@ -1,5 +1,5 @@
 <?php
-require_once 'conexao.php';
+require_once './config/conexao.php';
 $resultado = $conn->query("SELECT * FROM cargos ORDER BY nome ASC");
 $cargos = $resultado ? $resultado->fetch_all(MYSQLI_ASSOC) : [];
 ?>

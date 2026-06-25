@@ -1,5 +1,5 @@
 <?php
-require_once 'conexao.php';
+require_once './config/conexao.php';
 
 $query = "SELECT f.*, func.nome AS funcionario_nome 
           FROM ferias f 

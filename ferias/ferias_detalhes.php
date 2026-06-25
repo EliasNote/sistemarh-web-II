@@ -1,5 +1,5 @@
 <?php
-require_once 'conexao.php';
+require_once './config/conexao.php';
 $registro_id = $_GET['registro'] ?? '';
 
 $query = "SELECT fer.*, f.nome AS funcionario_nome, f.setor, f.salario_base, c.nome AS cargo_nome 

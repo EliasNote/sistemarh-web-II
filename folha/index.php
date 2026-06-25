@@ -1,5 +1,5 @@
 <?php
-require_once 'conexao.php';
+require_once './config/conexao.php';
 
 $query = "SELECT fp.*, f.nome AS funcionario_nome 
           FROM folha_pagamento fp 

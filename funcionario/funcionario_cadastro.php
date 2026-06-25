@@ -1,5 +1,5 @@
 <?php
-require_once 'conexao.php';
+require_once './config/conexao.php';
 $erro = '';
 
 $resultado_cargos = $conn->query("SELECT id, nome, salario_base FROM cargos ORDER BY nome ASC");

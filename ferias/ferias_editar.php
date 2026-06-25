@@ -1,5 +1,5 @@
 <?php
-require_once 'conexao.php';
+require_once './config/conexao.php';
 $erro = '';
 $registro_id = $_GET['registro'] ?? '';
 

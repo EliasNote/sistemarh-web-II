@@ -1,5 +1,5 @@
 <?php
-require_once 'conexao.php';
+require_once './config/conexao.php';
 $erro = '';
 
 // Busca funcionários e seus respectivos salários customizados

@@ -1,5 +1,5 @@
 <?php
-require_once 'conexao.php';
+require_once './config/conexao.php';
 
 $query = "SELECT f.*, c.nome AS cargo_nome FROM funcionarios f LEFT JOIN cargos c ON f.cargo_id = c.id ORDER BY f.id DESC";
 $resultado = $conn->query($query);

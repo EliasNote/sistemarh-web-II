@@ -1,5 +1,5 @@
 <?php
-require_once 'conexao.php';
+require_once './config/conexao.php';
 $erro = '';
 
 // Busca todos os funcionários ativos e seus salários base

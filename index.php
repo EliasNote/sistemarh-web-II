@@ -23,32 +23,32 @@ $id = $_GET['id'] ?? 'funcionarios';
                 <a href="?id=cargos" class="sidebar__link <?= in_array($id, ['cargos', 'cargo_cadastro', 'cargo_editar']) ? 'active' : '' ?>">Cargos</a>
                 <a href="?id=ferias" class="sidebar__link <?= in_array($id, ['ferias', 'ferias_cadastro', 'ferias_editar', 'ferias_detalhes']) ? 'active' : '' ?>">Férias</a>
                 <a href="?id=folha" class="sidebar__link <?= in_array($id, ['folha', 'folha_gerar', 'folha_detalhes']) ? 'active' : '' ?>">Folha (Simulação)</a>
-                <a href="login.php" class="sidebar__link">Sair</a>
+                <a href="/login/" class="sidebar__link">Sair</a>
             </nav>
         </aside>
 
         <main class="content">
             <?php
-                if ($id === 'funcionarios') include 'funcionarios.php';
-                elseif ($id === 'funcionario_cadastro') include 'funcionario_cadastro.php';
-                elseif ($id === 'funcionario_editar') include 'funcionario_editar.php';
-                elseif ($id === 'funcionario_excluir') include 'funcionario_excluir.php';
+                if ($id === 'funcionarios') include './funcionario/index.php';
+                elseif ($id === 'funcionario_cadastro') include './funcionario/funcionario_cadastro.php';
+                elseif ($id === 'funcionario_editar') include './funcionario/funcionario_editar.php';
+                elseif ($id === 'funcionario_excluir') include './funcionario/funcionario_excluir.php';
                 
-                elseif ($id === 'cargos') include 'cargos.php';
-                elseif ($id === 'cargo_cadastro') include 'cargo_cadastro.php';
-                elseif ($id === 'cargo_editar') include 'cargo_editar.php';
-                elseif ($id === 'cargo_excluir') include 'cargo_excluir.php';
+                elseif ($id === 'cargos') include './cargo/index.php';
+                elseif ($id === 'cargo_cadastro') include './cargo/cargo_cadastro.php';
+                elseif ($id === 'cargo_editar') include './cargo/cargo_editar.php';
+                elseif ($id === 'cargo_excluir') include './cargo/cargo_excluir.php';
 
-                elseif ($id === 'ferias') include 'ferias.php';
-                elseif ($id === 'ferias_cadastro') include 'ferias_cadastro.php';
-                elseif ($id === 'ferias_editar') include 'ferias_editar.php';
-                elseif ($id === 'ferias_excluir') include 'ferias_excluir.php';
-                elseif ($id === 'ferias_detalhes') include 'ferias_detalhes.php';
+                elseif ($id === 'ferias') include './ferias/index.php';
+                elseif ($id === 'ferias_cadastro') include './ferias/ferias_cadastro.php';
+                elseif ($id === 'ferias_editar') include './ferias/ferias_editar.php';
+                elseif ($id === 'ferias_excluir') include './ferias/ferias_excluir.php';
+                elseif ($id === 'ferias_detalhes') include './ferias/ferias_detalhes.php';
 
-                elseif ($id === 'folha') include 'folha.php';
-                elseif ($id === 'folha_gerar') include 'folha_gerar.php';
-                elseif ($id === 'folha_detalhes') include 'folha_detalhes.php';
-                elseif ($id === 'folha_excluir') include 'folha_excluir.php';
+                elseif ($id === 'folha') include './folha/index.php';
+                elseif ($id === 'folha_gerar') include './folha/folha_gerar.php';
+                elseif ($id === 'folha_detalhes') include './folha/folha_detalhes.php';
+                elseif ($id === 'folha_excluir') include './folha/folha_excluir.php';
             ?>
         </main>
     </div>
