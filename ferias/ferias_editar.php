@@ -116,7 +116,6 @@ if (!$dados_ferias) {
         </form>
     </div>
 
-    <!-- Espelho de Prévia do Holerite de Férias -->
     <div class="panel-card panel-card--preview">
         <h3 class="panel-title">Prévia das Férias</h3>
         
@@ -187,7 +186,6 @@ if (!$dados_ferias) {
 </div>
 
 <script>
-// Mantém as mesmas funções de cálculo JS do arquivo anterior para atualização em tempo real
 function calcularPeriodoFeria() {
     const startVal = document.getElementById('data_inicio').value;
     const endVal = document.getElementById('data_fim').value;
@@ -244,7 +242,6 @@ function atualizarPreviewCompleto() {
     document.getElementById('prev_status').innerText = statusText;
 }
 
-// Inicializa a tela com o nome e as datas carregadas do registro existente
 window.onload = function() {
     const select = document.getElementById('funcionario_id');
     document.getElementById('prev_nome').innerText = select.options[select.selectedIndex].text;

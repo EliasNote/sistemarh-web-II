@@ -2,7 +2,6 @@
 require_once './config/conexao.php';
 $erro = '';
 
-// Busca funcionários e seus respectivos salários customizados
 $query_func = "SELECT id, nome, salario_base FROM funcionarios WHERE status != 'Inativo' ORDER BY nome ASC";
 $resultado_func = $conn->query($query_func);
 $funcionarios = $resultado_func ? $resultado_func->fetch_all(MYSQLI_ASSOC) : [];
@@ -14,7 +13,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $salario_bruto = floatval($_POST['salario_bruto'] ?? 0);
     $desconto_inss = floatval($_POST['desconto_inss'] ?? 0);
     $desconto_irpf = floatval($_POST['desconto_irpf'] ?? 0);
-    $outros_descontos = !empty($_POST['outros_descontos']) ? floatval($_POST['outros_descontos']) : 0.00; // Não obrigatório
+    $outros_descontos = !empty($_POST['outros_descontos']) ? floatval($_POST['outros_descontos']) : 0.00;
     $valor_fgts = floatval($_POST['valor_fgts'] ?? 0);
 
     if (!empty($funcionario_id) && !empty($mes) && !empty($ano)) {
@@ -56,7 +55,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <?php endif; ?>
 
 <div class="folha-grid">
-    <!-- Painel de entrada de dados -->
     <div class="panel-card">
         <h3 class="panel-title">Parâmetros de Lançamento</h3>
         
@@ -100,7 +98,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     <input type="number" step="0.01" name="salario_bruto" id="salario_bruto" required oninput="calcularImpostos()" class="form-control">
                 </div>
                 <div class="field-group">
-                    <!-- FGTS agora é totalmente editável -->
                     <label class="form-label">Fundo de Garantia - FGTS (R$)</label>
                     <input type="number" step="0.01" name="valor_fgts" id="valor_fgts" required oninput="atualizarPreviewCompleto()" class="form-control">
                 </div>
@@ -108,19 +105,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
             <div class="form-row">
                 <div class="field-group">
-                    <!-- INSS agora é editável -->
                     <label class="form-label">Desconto INSS (R$)</label>
                     <input type="number" step="0.01" name="desconto_inss" id="desconto_inss" required oninput="atualizarPreviewCompleto()" class="form-control">
                 </div>
                 <div class="field-group">
-                    <!-- IRPF agora é editável -->
                     <label class="form-label">Desconto IRPF (R$)</label>
                     <input type="number" step="0.01" name="desconto_irpf" id="desconto_irpf" required oninput="atualizarPreviewCompleto()" class="form-control">
                 </div>
             </div>
 
             <div class="field-group">
-                <!-- Outros descontos não é mais obrigatório -->
                 <label class="form-label">Outros Descontos Adicionais (Opcional)</label>
                 <input type="number" step="0.01" name="outros_descontos" id="outros_descontos" placeholder="0.00" oninput="atualizarPreviewCompleto()" class="form-control">
             </div>
@@ -129,7 +123,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         </form>
     </div>
 
-    <!-- Painel de espelho holerite interativo -->
     <div class="panel-card panel-card--preview">
         <h3 class="panel-title">Prévia do Holerite <span class="badge-info">Atualização Automática</span></h3>
         
@@ -198,7 +191,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 </div>
 
 <script>
-// Funções de Cálculo Progressivo
 function calcularINSS(salario) {
     const teto = 8475.55;
     const s_calc = Math.min(salario, teto);
@@ -231,7 +223,6 @@ function carregarDadosSalario() {
     const option = select.options[select.selectedIndex];
     const salario = option.getAttribute('data-salario');
     
-    // Atualiza nome na prévia
     document.getElementById('prev_nome').innerText = option.text !== 'Selecione o colaborador...' ? option.text : 'Selecione um funcionário';
 
     if (salario) {
@@ -249,12 +240,10 @@ function carregarDadosSalario() {
 function calcularImpostos() {
     const bruto = parseFloat(document.getElementById('salario_bruto').value) || 0;
     
-    // Calcula as estimativas de tributação recomendadas
     const inss = calcularINSS(bruto);
     const irpf = calcularIRPF(bruto, inss);
     const fgts = bruto * 0.08;
 
-    // Prefila os inputs para edição manual livre
     document.getElementById('desconto_inss').value = inss.toFixed(2);
     document.getElementById('desconto_irpf').value = irpf.toFixed(2);
     document.getElementById('valor_fgts').value = fgts.toFixed(2);
@@ -284,12 +273,10 @@ function atualizarPreviewCompleto() {
     const totalDescontos = inss + irpf + outros;
     const liquido = bruto - totalDescontos;
 
-    // Atualiza elementos de texto do Holerite Interativo
     document.getElementById('row_bruto').innerText = formatarMoeda(bruto);
     document.getElementById('row_inss').innerText = formatarMoeda(inss);
     document.getElementById('row_irpf').innerText = formatarMoeda(irpf);
 
-    // Gerencia o campo opcional de Outros Descontos no espelho
     const rowOutrosContainer = document.getElementById('row_outros_container');
     if (outros > 0) {
         rowOutrosContainer.style.display = 'table-row';
@@ -302,11 +289,9 @@ function atualizarPreviewCompleto() {
     document.getElementById('prev_descontos').innerText = formatarMoeda(totalDescontos);
     document.getElementById('prev_liquido').innerText = formatarMoeda(liquido);
 
-    // Rodapé de FGTS Informativo
     document.getElementById('prev_base_fgts').innerText = formatarMoeda(bruto);
     document.getElementById('prev_valor_fgts').innerText = formatarMoeda(fgts);
 }
 
-// Inicia com a competência carregada
 atualizarPreviewMeta();
 </script>

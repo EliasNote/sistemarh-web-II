@@ -31,7 +31,7 @@ $id = $_GET['id'] ?? 'funcionarios';
                 <a href="?id=funcionarios" class="sidebar__link <?= in_array($id, ['funcionarios', 'funcionario_cadastro', 'funcionario_editar']) ? 'active' : '' ?>">Funcionários</a>
                 <a href="?id=cargos" class="sidebar__link <?= in_array($id, ['cargos', 'cargo_cadastro', 'cargo_editar']) ? 'active' : '' ?>">Cargos</a>
                 <a href="?id=ferias" class="sidebar__link <?= in_array($id, ['ferias', 'ferias_cadastro', 'ferias_editar', 'ferias_detalhes']) ? 'active' : '' ?>">Férias</a>
-                <a href="?id=folha" class="sidebar__link <?= in_array($id, ['folha', 'folha_gerar', 'folha_detalhes']) ? 'active' : '' ?>">Folha (Simulação)</a>
+                <a href="?id=folha" class="sidebar__link <?= in_array($id, ['folha', 'folha_gerar', 'folha_detalhes']) ? 'active' : '' ?>">Folha</a>
                 <a href="/login/" class="sidebar__link">Sair</a>
             </nav>
         </aside>

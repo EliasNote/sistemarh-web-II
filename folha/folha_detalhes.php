@@ -95,7 +95,6 @@ if (!$folha) {
         <strong>VALOR LÍQUIDO CREDITADO: R$ <?= number_format($folha['salario_liquido'], 2, ',', '.') ?></strong>
     </div>
 
-    <!-- Informações de base e depósito de FGTS -->
     <div class="holerite-print-footer">
         <div>
             <strong>Base de Cálculo FGTS:</strong> R$ <?= number_format($folha['salario_bruto'], 2, ',', '.') ?>

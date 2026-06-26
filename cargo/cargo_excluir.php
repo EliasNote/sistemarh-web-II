@@ -9,7 +9,6 @@ if ($registro_id) {
         $stmt->execute();
         $stmt->close();
     } catch (mysqli_sql_exception $e) {
-        // Intercepta o erro caso o cargo não possa ser excluído por ter funcionários atrelados a ele (FOREIGN KEY RESTRICT)
         echo "<script>alert('Não é possível excluir um cargo que possui funcionários vinculados.'); window.location.href='index.php?id=cargos';</script>";
         exit;
     }

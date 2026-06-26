@@ -19,7 +19,6 @@ if (!$dados) {
     exit;
 }
 
-// Recupera os valores salvos no banco de dados [1]
 $valor_diario = $dados['salario_base'] / 30;
 $valor_proporcional = $valor_diario * $dados['dias'];
 $terco_constitucional = $valor_proporcional / 3;

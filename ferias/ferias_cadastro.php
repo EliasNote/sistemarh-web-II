@@ -2,7 +2,6 @@
 require_once './config/conexao.php';
 $erro = '';
 
-// Busca todos os funcionários ativos e seus salários base
 $resultado_func = $conn->query("SELECT id, nome, salario_base FROM funcionarios WHERE status != 'Inativo' ORDER BY nome ASC");
 $funcionarios = $resultado_func ? $resultado_func->fetch_all(MYSQLI_ASSOC) : [];
 
@@ -37,7 +36,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 ?>
 
 <div class="ferias-grid">
-    <!-- Entrada de Parâmetros -->
     <div class="panel-card">
         <h3 class="panel-title">Parâmetros de Concessão de Férias</h3>
         
@@ -85,12 +83,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
             <div class="form-row">
                 <div class="field-group">
-                    <!-- INSS de Férias Editável -->
                     <label class="form-label">Desconto INSS s/ Férias (R$)</label>
                     <input type="number" step="0.01" name="desconto_inss" id="desconto_inss" required oninput="calcularLiquido()" class="form-control">
                 </div>
                 <div class="field-group">
-                    <!-- IRPF de Férias Editável -->
                     <label class="form-label">Desconto IRPF s/ Férias (R$)</label>
                     <input type="number" step="0.01" name="desconto_irpf" id="desconto_irpf" required oninput="calcularLiquido()" class="form-control">
                 </div>
@@ -100,7 +96,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         </form>
     </div>
 
-    <!-- Espelho Interativo de Recibo de Férias -->
     <div class="panel-card panel-card--preview">
         <h3 class="panel-title">Prévia do Recibo de Férias <span class="badge-info">Tempo Real</span></h3>
         
@@ -213,7 +208,6 @@ function calcularPeriodoFeria() {
     const salario = parseFloat(option.getAttribute('data-salario')) || 0;
 
     if (startVal && endVal && salario > 0) {
-        // Correção de fuso horário no Javascript ao instanciar datas
         const start = new Date(startVal + 'T00:00:00');
         const end = new Date(endVal + 'T00:00:00');
 
@@ -224,27 +218,22 @@ function calcularPeriodoFeria() {
             document.getElementById('prev_dias').innerText = diffDays + " dias";
             document.getElementById('prev_periodo').innerText = start.toLocaleDateString('pt-BR') + " a " + end.toLocaleDateString('pt-BR');
             
-            // Datas do Aviso (30 dias antes)
             const avisoDate = new Date(start);
             avisoDate.setDate(avisoDate.getDate() - 30);
             document.getElementById('prev_aviso').innerText = avisoDate.toLocaleDateString('pt-BR');
 
-            // Cálculos CLT
             const valorDiario = salario / 30;
             const proporcional = valorDiario * diffDays;
             const terco = proporcional / 3;
             const bruto = proporcional + terco;
 
-            // Auto-calcula INSS e IRPF baseados no bruto das férias
             const inss = calcularINSS(bruto);
             const irpf = calcularIRPF(bruto, inss);
 
-            // Preenche os campos editáveis
             document.getElementById('valor_bruto').value = bruto.toFixed(2);
             document.getElementById('desconto_inss').value = inss.toFixed(2);
             document.getElementById('desconto_irpf').value = irpf.toFixed(2);
 
-            // Armazena variáveis para exibição
             document.getElementById('row_prop').innerText = formatarMoeda(proporcional);
             document.getElementById('row_terco').innerText = formatarMoeda(terco);
             document.getElementById('prev_base').innerText = formatarMoeda(salario);
@@ -267,7 +256,6 @@ function atualizarPreviewCompleto() {
     const totalDescontos = inss + irpf;
     const liquido = bruto - totalDescontos;
 
-    // Atualização em tempo real do holerite de férias
     document.getElementById('row_inss').innerText = formatarMoeda(inss);
     document.getElementById('row_irpf').innerText = formatarMoeda(irpf);
     document.getElementById('prev_bruto').innerText = formatarMoeda(bruto);
