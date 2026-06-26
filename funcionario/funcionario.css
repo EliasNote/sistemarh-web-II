@@ -1,0 +1,65 @@
+/* Funcionario pages */
+
+.sidebar__brand {
+  text-decoration: none;
+  color: inherit;
+}
+
+.sidebar__brand h1 {
+  margin: 0;
+}
+
+.sidebar__brand p {
+  margin: 4px 0 20px;
+}
+
+.btn-primary--link {
+  text-decoration: none;
+}
+
+.btn-primary--muted {
+  background: var(--muted);
+}
+
+.table-empty {
+  text-align: center;
+}
+
+.btn-link--plain {
+  text-decoration: none;
+}
+
+.alert-error {
+  background: #fef2f2;
+  color: var(--danger);
+  border: 1px solid #fca5a5;
+  padding: 10px;
+  border-radius: 8px;
+  margin-bottom: 20px;
+}
+
+.employee-form {
+  max-width: 500px;
+}
+
+.form-field {
+  margin-bottom: 16px;
+}
+
+.form-field--last {
+  margin-bottom: 24px;
+}
+
+.form-label {
+  display: block;
+  margin-bottom: 6px;
+  font-weight: 600;
+}
+
+.form-control {
+  width: 100%;
+  padding: 9px 12px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  box-sizing: border-box;
+}

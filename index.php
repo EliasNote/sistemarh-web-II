@@ -9,13 +9,22 @@ $id = $_GET['id'] ?? 'funcionarios';
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sistema RH - Painel</title>
     <link rel="stylesheet" href="styles.css">
+    <?php if (in_array($id, ['funcionarios', 'funcionario_cadastro', 'funcionario_editar'])): ?>
+        <link rel="stylesheet" href="funcionario/funcionario.css">
+    <?php endif; ?>
+    <?php if (in_array($id, ['folha', 'folha_gerar', 'folha_detalhes'])): ?>
+        <link rel="stylesheet" href="folha/folha.css">
+    <?php endif; ?>
+    <?php if (in_array($id, ['ferias', 'ferias_cadastro', 'ferias_editar', 'ferias_detalhes'])): ?>
+        <link rel="stylesheet" href="ferias/ferias.css">
+    <?php endif; ?>
 </head>
 <body>
     <div class="layout">
         <aside class="sidebar">
-            <a href="index.php" class="sidebar__brand" style="text-decoration: none; color: inherit;">
-                <h1 style="margin: 0;">Sistema RH</h1>
-                <p style="margin: 4px 0 20px;">Painel Administrativo</p>
+            <a href="index.php" class="sidebar__brand">
+                <h1>Sistema RH</h1>
+                <p>Painel Administrativo</p>
             </a>
 
             <nav class="sidebar__nav" aria-label="Menu principal">

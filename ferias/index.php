@@ -12,7 +12,7 @@ $ferias = $resultado ? $resultado->fetch_all(MYSQLI_ASSOC) : [];
 
 <section class="page-header">
     <h2>Agendamento de Férias</h2>
-    <a href="?id=ferias_cadastro" class="btn-primary" style="text-decoration: none;">+ Agendar Férias</a>
+    <a href="?id=ferias_cadastro" class="btn-primary btn-primary--link">+ Agendar Férias</a>
 </section>
 
 <section class="table-card">
@@ -37,22 +37,22 @@ $ferias = $resultado ? $resultado->fetch_all(MYSQLI_ASSOC) : [];
             <tbody>
                 <?php if (empty($ferias)): ?>
                     <tr>
-                        <td colspan="8" style="text-align: center;">Nenhum agendamento de férias registrado.</td>
+                        <td colspan="8" class="table-empty">Nenhum agendamento de férias registrado.</td>
                     </tr>
                 <?php else: ?>
                     <?php foreach ($ferias as $f): 
-                        $status_style = '';
                         $status_exibicao = $f['status'];
+                        $status_class = 'status--agendada';
 
                         if ($f['status'] === 'Agendada') {
-                            $status_style = 'background: #fef3c7; color: #92400e;';
+                            $status_class = 'status--agendada';
                         } elseif ($f['status'] === 'Em andamento') {
-                            $status_style = 'background: #dcfce7; color: #166534;';
+                            $status_class = 'status--andamento';
                         } elseif ($f['status'] === 'Concluida') {
-                            $status_style = 'background: #e5e7eb; color: #374151;';
+                            $status_class = 'status--concluida';
                             $status_exibicao = 'Concluída';
                         } elseif ($f['status'] === 'Cancelada') {
-                            $status_style = 'background: #fef2f2; color: #b91c1c;';
+                            $status_class = 'status--cancelada';
                         }
                     ?>
                         <tr>
@@ -61,24 +61,19 @@ $ferias = $resultado ? $resultado->fetch_all(MYSQLI_ASSOC) : [];
                             <td><?= date('d/m/Y', strtotime($f['data_inicio'])) ?></td>
                             <td><?= date('d/m/Y', strtotime($f['data_fim'])) ?></td>
                             <td><?= htmlspecialchars($f['dias']) ?> dias</td>
-                            <td>
-                                <!-- Carrega os valores financeiros salvos e editados pelo gestor -->
-                                <div style="font-size: 0.9rem; line-height: 1.4;">
-                                    <strong style="color: #166534;">Líquido: R$ <?= number_format($f['valor_liquido'], 2, ',', '.') ?></strong><br>
-                                    <small style="color: var(--muted); display: block; margin-top: 2px;">
-                                        Total Bruto: R$ <?= number_format($f['valor_bruto'], 2, ',', '.') ?>
-                                    </small>
-                                </div>
+                            <td class="finance-summary">
+                                <strong class="finance-summary__liquido">Líquido: R$ <?= number_format($f['valor_liquido'], 2, ',', '.') ?></strong>
+                                <small class="finance-summary__bruto">Total Bruto: R$ <?= number_format($f['valor_bruto'], 2, ',', '.') ?></small>
                             </td>
                             <td>
-                                <span class="status" style="<?= $status_style ?>">
+                                <span class="status <?= $status_class ?>">
                                     <?= htmlspecialchars($status_exibicao) ?>
                                 </span>
                             </td>
                             <td class="actions">
-                                <a href="?id=ferias_detalhes&registro=<?= $f['id'] ?>" class="btn-link" style="text-decoration: none; color: #0f766e; font-weight: bold; margin-right: 8px;">Ver Recibo</a>
-                                <a href="?id=ferias_editar&registro=<?= $f['id'] ?>" class="btn-link" style="text-decoration: none; margin-right: 8px;">Editar</a>
-                                <a href="?id=ferias_excluir&registro=<?= $f['id'] ?>" class="btn-link danger" style="text-decoration: none;" onclick="return confirm('Tem certeza que deseja excluir este agendamento?');">Excluir</a>
+                                <a href="?id=ferias_detalhes&registro=<?= $f['id'] ?>" class="btn-link btn-link--emphasis">Ver Recibo</a>
+                                <a href="?id=ferias_editar&registro=<?= $f['id'] ?>" class="btn-link btn-link--plain">Editar</a>
+                                <a href="?id=ferias_excluir&registro=<?= $f['id'] ?>" class="btn-link danger btn-link--plain" onclick="return confirm('Tem certeza que deseja excluir este agendamento?');">Excluir</a>
                             </td>
                         </tr>
                     <?php endforeach; ?>

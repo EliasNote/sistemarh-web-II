@@ -47,34 +47,13 @@ if (!$dados_ferias) {
 }
 ?>
 
-<!-- Reutiliza a estrutura de estilos da tela anterior -->
-<style>
-.ferias-grid { display: grid; grid-template-columns: 1fr; gap: 24px; margin-top: 20px; }
-@media (min-width: 992px) { .ferias-grid { grid-template-columns: 1.2fr 0.8fr; } }
-.panel-card { background: #fff; border: 1px solid #e5e7eb; border-radius: 12px; padding: 24px; box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05); }
-.panel-title { font-size: 1.1rem; font-weight: 600; color: #111827; margin-top: 0; margin-bottom: 20px; border-bottom: 1px solid #f3f4f6; padding-bottom: 10px; display: flex; justify-content: space-between; align-items: center; }
-.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 16px; }
-.field-group { margin-bottom: 16px; }
-.field-group label { display: block; margin-bottom: 6px; font-size: 0.9rem; font-weight: 600; color: #374151; }
-.field-group input, .field-group select { width: 100%; padding: 10px 12px; border: 1px solid #d1d5db; border-radius: 8px; box-sizing: border-box; font-family: inherit; font-size: 0.95rem; outline: none; }
-.recibo-preview { background: #f9fafb; border: 2px dashed #d1d5db; border-radius: 8px; padding: 20px; font-family: monospace; }
-.recibo-header { text-align: center; border-bottom: 1px solid #000; padding-bottom: 10px; margin-bottom: 15px; }
-.recibo-meta { display: flex; justify-content: space-between; font-size: 0.85rem; margin-bottom: 15px; border-bottom: 1px dashed #ccc; padding-bottom: 10px; line-height: 1.4; }
-.recibo-table { width: 100%; font-size: 0.85rem; margin-bottom: 15px; }
-.recibo-table th { text-align: left; border-bottom: 1px solid #000; padding: 4px 0; }
-.recibo-table td { padding: 6px 0; }
-.recibo-totalizer { border-top: 1px solid #000; padding-top: 10px; font-size: 0.9rem; display: flex; justify-content: space-between; margin-bottom: 15px; }
-.recibo-liquido { background: #fff; border: 1px solid #000; padding: 10px; text-align: right; font-size: 1.1rem; font-weight: bold; margin-bottom: 15px; }
-.recibo-footer { border-top: 1px dashed #000; padding-top: 10px; font-size: 0.75rem; color: #4b5563; display: flex; justify-content: space-between; }
-</style>
-
 <section class="page-header">
     <h2>Editar Férias</h2>
-    <a href="?id=ferias" class="btn-primary" style="background: var(--muted); text-decoration: none;">Voltar</a>
+    <a href="?id=ferias" class="btn-primary btn-primary--muted btn-primary--link">Voltar</a>
 </section>
 
 <?php if ($erro): ?>
-    <div style="background: #fef2f2; color: var(--danger); border: 1px solid #fca5a5; padding: 12px; border-radius: 8px; margin-bottom: 20px;">
+    <div class="alert-error">
         <?= htmlspecialchars($erro) ?>
     </div>
 <?php endif; ?>
@@ -85,8 +64,8 @@ if (!$dados_ferias) {
         
         <form action="?id=ferias_editar&registro=<?= $registro_id ?>" method="POST">
             <div class="field-group">
-                <label>Funcionário</label>
-                <select name="funcionario_id" id="funcionario_id" required onchange="carregarDadosFuncionario()">
+                <label class="form-label">Funcionário</label>
+                <select name="funcionario_id" id="funcionario_id" required onchange="carregarDadosFuncionario()" class="form-control">
                     <?php foreach ($funcionarios as $func): ?>
                         <option value="<?= htmlspecialchars($func['id']) ?>" data-salario="<?= htmlspecialchars($func['salario_base']) ?>" <?= $dados_ferias['funcionario_id'] == $func['id'] ? 'selected' : '' ?>>
                             <?= htmlspecialchars($func['nome']) ?>
@@ -97,23 +76,23 @@ if (!$dados_ferias) {
 
             <div class="form-row">
                 <div class="field-group">
-                    <label>Data Início</label>
-                    <input type="date" name="data_inicio" id="data_inicio" value="<?= htmlspecialchars($dados_ferias['data_inicio']) ?>" required onchange="calcularPeriodoFeria()">
+                    <label class="form-label">Data Início</label>
+                    <input type="date" name="data_inicio" id="data_inicio" value="<?= htmlspecialchars($dados_ferias['data_inicio']) ?>" required onchange="calcularPeriodoFeria()" class="form-control">
                 </div>
                 <div class="field-group">
-                    <label>Data Fim</label>
-                    <input type="date" name="data_fim" id="data_fim" value="<?= htmlspecialchars($dados_ferias['data_fim']) ?>" required onchange="calcularPeriodoFeria()">
+                    <label class="form-label">Data Fim</label>
+                    <input type="date" name="data_fim" id="data_fim" value="<?= htmlspecialchars($dados_ferias['data_fim']) ?>" required onchange="calcularPeriodoFeria()" class="form-control">
                 </div>
             </div>
 
             <div class="form-row">
                 <div class="field-group">
-                    <label>Total Bruto (Férias + 1/3) (R$)</label>
-                    <input type="number" step="0.01" name="valor_bruto" id="valor_bruto" value="<?= htmlspecialchars($dados_ferias['valor_bruto']) ?>" required oninput="calcularLiquido()">
+                    <label class="form-label">Total Bruto (Férias + 1/3) (R$)</label>
+                    <input type="number" step="0.01" name="valor_bruto" id="valor_bruto" value="<?= htmlspecialchars($dados_ferias['valor_bruto']) ?>" required oninput="calcularLiquido()" class="form-control">
                 </div>
                 <div class="field-group">
-                    <label>Status</label>
-                    <select name="status" id="status" onchange="atualizarPreviewCompleto()">
+                    <label class="form-label">Status</label>
+                    <select name="status" id="status" onchange="atualizarPreviewCompleto()" class="form-control">
                         <option value="Agendada" <?= $dados_ferias['status'] === 'Agendada' ? 'selected' : '' ?>>Agendada</option>
                         <option value="Em andamento" <?= $dados_ferias['status'] === 'Em andamento' ? 'selected' : '' ?>>Em andamento</option>
                         <option value="Concluida" <?= $dados_ferias['status'] === 'Concluida' ? 'selected' : '' ?>>Concluída</option>
@@ -124,21 +103,21 @@ if (!$dados_ferias) {
 
             <div class="form-row">
                 <div class="field-group">
-                    <label>Desconto INSS s/ Férias (R$)</label>
-                    <input type="number" step="0.01" name="desconto_inss" id="desconto_inss" value="<?= htmlspecialchars($dados_ferias['desconto_inss']) ?>" required oninput="calcularLiquido()">
+                    <label class="form-label">Desconto INSS s/ Férias (R$)</label>
+                    <input type="number" step="0.01" name="desconto_inss" id="desconto_inss" value="<?= htmlspecialchars($dados_ferias['desconto_inss']) ?>" required oninput="calcularLiquido()" class="form-control">
                 </div>
                 <div class="field-group">
-                    <label>Desconto IRPF s/ Férias (R$)</label>
-                    <input type="number" step="0.01" name="desconto_irpf" id="desconto_irpf" value="<?= htmlspecialchars($dados_ferias['desconto_irpf']) ?>" required oninput="calcularLiquido()">
+                    <label class="form-label">Desconto IRPF s/ Férias (R$)</label>
+                    <input type="number" step="0.01" name="desconto_irpf" id="desconto_irpf" value="<?= htmlspecialchars($dados_ferias['desconto_irpf']) ?>" required oninput="calcularLiquido()" class="form-control">
                 </div>
             </div>
 
-            <button type="submit" class="btn-primary" style="width: 100%; padding: 12px; font-size: 1rem;">Salvar Alterações</button>
+            <button type="submit" class="btn-primary ferias-submit">Salvar Alterações</button>
         </form>
     </div>
 
     <!-- Espelho de Prévia do Holerite de Férias -->
-    <div class="panel-card" style="align-self: start;">
+    <div class="panel-card panel-card--preview">
         <h3 class="panel-title">Prévia das Férias</h3>
         
         <div class="recibo-preview">
@@ -152,7 +131,7 @@ if (!$dados_ferias) {
                     <strong>Nome:</strong> <span id="prev_nome">--</span><br>
                     <strong>Período:</strong> <span id="prev_periodo">--</span>
                 </div>
-                <div style="text-align: right;">
+                <div class="text-right">
                     <strong>Dias:</strong> <span id="prev_dias">0 dias</span><br>
                     <strong>Status:</strong> <span id="prev_status">Agendada</span>
                 </div>
@@ -161,38 +140,38 @@ if (!$dados_ferias) {
             <table class="recibo-table">
                 <thead>
                     <tr>
-                        <th style="width: 50%;">Descrição</th>
-                        <th style="text-align: right; width: 25%;">Vencimentos</th>
-                        <th style="text-align: right; width: 25%;">Descontos</th>
+                        <th class="col-description">Descrição</th>
+                        <th class="col-money">Vencimentos</th>
+                        <th class="col-money">Descontos</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr>
                         <td>Férias Proporcionais</td>
-                        <td style="text-align: right;" id="row_prop">R$ 0,00</td>
-                        <td style="text-align: right;">-</td>
+                        <td class="text-right" id="row_prop">R$ 0,00</td>
+                        <td class="text-right">-</td>
                     </tr>
                     <tr>
                         <td>1/3 Constitucional de Férias</td>
-                        <td style="text-align: right;" id="row_terco">R$ 0,00</td>
-                        <td style="text-align: right;">-</td>
+                        <td class="text-right" id="row_terco">R$ 0,00</td>
+                        <td class="text-right">-</td>
                     </tr>
                     <tr>
                         <td>INSS s/ Férias</td>
-                        <td style="text-align: right;">-</td>
-                        <td style="text-align: right; color: #b91c1c;" id="row_inss">R$ 0,00</td>
+                        <td class="text-right">-</td>
+                        <td class="text-right text-danger" id="row_inss">R$ 0,00</td>
                     </tr>
                     <tr>
                         <td>IRPF s/ Férias</td>
-                        <td style="text-align: right;">-</td>
-                        <td style="text-align: right; color: #b91c1c;" id="row_irpf">R$ 0,00</td>
+                        <td class="text-right">-</td>
+                        <td class="text-right text-danger" id="row_irpf">R$ 0,00</td>
                     </tr>
                 </tbody>
             </table>
 
             <div class="recibo-totalizer">
-                <div>Total Bruto: <span id="prev_bruto">R$ 0,00</span></div>
-                <div style="text-align: right;">Retenções: <span id="prev_descontos" style="color: #b91c1c;">R$ 0,00</span></div>
+                <div>Total Bruto: <span id="prev_bruto" class="font-bold">R$ 0,00</span></div>
+                <div class="text-right">Retenções: <span id="prev_descontos" class="font-bold text-danger">R$ 0,00</span></div>
             </div>
 
             <div class="recibo-liquido">
@@ -201,7 +180,7 @@ if (!$dados_ferias) {
 
             <div class="recibo-footer">
                 <div>Base: <span id="prev_base">R$ 0,00</span></div>
-                <div>Aviso: <span id="prev_aviso">--</span></div>
+                <div class="text-right">Aviso: <span id="prev_aviso">--</span></div>
             </div>
         </div>
     </div>

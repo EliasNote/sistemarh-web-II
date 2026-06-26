@@ -12,7 +12,7 @@ $folhas = $resultado ? $resultado->fetch_all(MYSQLI_ASSOC) : [];
 
 <section class="page-header">
     <h2>Simulação de Folha de Pagamento</h2>
-    <a href="?id=folha_gerar" class="btn-primary" style="text-decoration: none;">+ Gerar Nova Folha</a>
+    <a href="?id=folha_gerar" class="btn-primary btn-primary--link">+ Gerar Nova Folha</a>
 </section>
 
 <section class="table-card">
@@ -37,7 +37,7 @@ $folhas = $resultado ? $resultado->fetch_all(MYSQLI_ASSOC) : [];
             <tbody>
                 <?php if (empty($folhas)): ?>
                     <tr>
-                        <td colspan="8" style="text-align: center;">Nenhuma simulação registrada.</td>
+                        <td colspan="8" class="table-empty">Nenhuma simulação registrada.</td>
                     </tr>
                 <?php else: ?>
                     <?php foreach ($folhas as $f): ?>
@@ -47,11 +47,11 @@ $folhas = $resultado ? $resultado->fetch_all(MYSQLI_ASSOC) : [];
                             <td><?= sprintf('%02d/%d', $f['mes'], $f['ano']) ?></td>
                             <td>R$ <?= number_format($f['salario_bruto'], 2, ',', '.') ?></td>
                             <td>R$ <?= number_format($f['total_descontos'], 2, ',', '.') ?></td>
-                            <td style="font-weight: 700; color: #166534;">R$ <?= number_format($f['salario_liquido'], 2, ',', '.') ?></td>
+                            <td class="salary-net">R$ <?= number_format($f['salario_liquido'], 2, ',', '.') ?></td>
                             <td><?= date('d/m/Y H:i', strtotime($f['data_geracao'])) ?></td>
                             <td class="actions">
-                                <a href="?id=folha_detalhes&registro=<?= $f['id'] ?>" class="btn-link" style="text-decoration: none;">Ver Holerite</a>
-                                <a href="?id=folha_excluir&registro=<?= $f['id'] ?>" class="btn-link danger" style="text-decoration: none;" onclick="return confirm('Excluir esta simulação?');">Excluir</a>
+                                <a href="?id=folha_detalhes&registro=<?= $f['id'] ?>" class="btn-link btn-link--plain">Ver Holerite</a>
+                                <a href="?id=folha_excluir&registro=<?= $f['id'] ?>" class="btn-link danger btn-link--plain" onclick="return confirm('Excluir esta simulação?');">Excluir</a>
                             </td>
                         </tr>
                     <?php endforeach; ?>

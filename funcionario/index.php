@@ -8,7 +8,7 @@ $funcionarios = $resultado ? $resultado->fetch_all(MYSQLI_ASSOC) : [];
 
 <section class="page-header">
     <h2>Funcionários</h2>
-    <a href="?id=funcionario_cadastro" class="btn-primary" style="text-decoration: none;">+ Novo Funcionário</a>
+    <a href="?id=funcionario_cadastro" class="btn-primary btn-primary--link">+ Novo Funcionário</a>
 </section>
 
 <section class="table-card">
@@ -31,7 +31,7 @@ $funcionarios = $resultado ? $resultado->fetch_all(MYSQLI_ASSOC) : [];
             <tbody>
                 <?php if (empty($funcionarios)): ?>
                     <tr>
-                        <td colspan="6" style="text-align: center;">Nenhum funcionário cadastrado.</td>
+                        <td colspan="6" class="table-empty">Nenhum funcionário cadastrado.</td>
                     </tr>
                 <?php else: ?>
                     <?php foreach ($funcionarios as $funcionario): ?>
@@ -46,8 +46,8 @@ $funcionarios = $resultado ? $resultado->fetch_all(MYSQLI_ASSOC) : [];
                                 </span>
                             </td>
                             <td class="actions">
-                                <a href="?id=funcionario_editar&registro=<?= $funcionario['id'] ?>" class="btn-link" style="text-decoration: none;">Editar</a>
-                                <a href="?id=funcionario_excluir&registro=<?= $funcionario['id'] ?>" class="btn-link danger" style="text-decoration: none;" onclick="return confirm('Tem certeza que deseja excluir este funcionário?');">Excluir</a>
+                                <a href="?id=funcionario_editar&registro=<?= $funcionario['id'] ?>" class="btn-link btn-link--plain">Editar</a>
+                                <a href="?id=funcionario_excluir&registro=<?= $funcionario['id'] ?>" class="btn-link danger btn-link--plain" onclick="return confirm('Tem certeza que deseja excluir este funcionário?');">Excluir</a>
                             </td>
                         </tr>
                     <?php endforeach; ?>

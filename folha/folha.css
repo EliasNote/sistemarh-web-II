@@ -1,0 +1,324 @@
+/* Folha pages */
+
+.btn-primary--link {
+  text-decoration: none;
+}
+
+.btn-primary--muted {
+  background: var(--muted);
+}
+
+.btn-primary--dark {
+  background: #1e293b;
+  margin-right: 8px;
+}
+
+.btn-link--plain {
+  text-decoration: none;
+}
+
+.table-empty {
+  text-align: center;
+}
+
+.salary-net {
+  font-weight: 700;
+  color: #166534;
+}
+
+.text-right {
+  text-align: right;
+}
+
+.text-danger {
+  color: #b91c1c;
+}
+
+.font-bold {
+  font-weight: 700;
+}
+
+.alert-error {
+  background: #fef2f2;
+  color: var(--danger);
+  border: 1px solid #fca5a5;
+  padding: 12px;
+  border-radius: 8px;
+  margin-bottom: 20px;
+}
+
+.page-actions {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.folha-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 24px;
+  margin-top: 20px;
+}
+
+@media (min-width: 992px) {
+  .folha-grid {
+    grid-template-columns: 1.2fr 0.8fr;
+  }
+}
+
+.panel-card {
+  background: #fff;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  padding: 24px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+.panel-card--preview {
+  align-self: start;
+}
+
+.panel-title {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #111827;
+  margin-top: 0;
+  margin-bottom: 20px;
+  border-bottom: 1px solid #f3f4f6;
+  padding-bottom: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+}
+
+.badge-info {
+  font-size: 0.75rem;
+  background: #e0f2fe;
+  color: #0369a1;
+  padding: 4px 8px;
+  border-radius: 99px;
+  white-space: nowrap;
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin-bottom: 16px;
+}
+
+.field-group {
+  margin-bottom: 16px;
+}
+
+.form-label {
+  display: block;
+  margin-bottom: 6px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #374151;
+}
+
+.form-control {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  box-sizing: border-box;
+  font-family: inherit;
+  font-size: 0.95rem;
+  outline: none;
+  transition: border-color 0.15s ease;
+}
+
+.form-control:focus {
+  border-color: var(--primary);
+}
+
+.section-title {
+  margin: 24px 0 12px;
+  color: #4b5563;
+  font-size: 0.95rem;
+  border-bottom: 1px solid #f3f4f6;
+  padding-bottom: 4px;
+}
+
+.folha-submit {
+  width: 100%;
+  padding: 12px;
+  font-size: 1rem;
+  margin-top: 10px;
+}
+
+.holerite-preview {
+  background: #f9fafb;
+  border: 2px dashed #d1d5db;
+  border-radius: 8px;
+  padding: 20px;
+  font-family: monospace;
+}
+
+.holerite-header {
+  text-align: center;
+  border-bottom: 1px solid #000;
+  padding-bottom: 10px;
+  margin-bottom: 15px;
+}
+
+.holerite-meta {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.85rem;
+  margin-bottom: 15px;
+  border-bottom: 1px dashed #ccc;
+  padding-bottom: 10px;
+  gap: 12px;
+}
+
+.holerite-table {
+  width: 100%;
+  font-size: 0.85rem;
+  margin-bottom: 15px;
+}
+
+.holerite-table th {
+  text-align: left;
+  border-bottom: 1px solid #000;
+  padding: 4px 0;
+}
+
+.holerite-table td {
+  padding: 6px 0;
+}
+
+.col-description {
+  width: 50%;
+}
+
+.col-money {
+  text-align: right;
+  width: 25%;
+}
+
+.hidden-row {
+  display: none;
+}
+
+.holerite-totalizer {
+  border-top: 1px solid #000;
+  padding-top: 10px;
+  font-size: 0.9rem;
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 15px;
+  gap: 12px;
+}
+
+.holerite-liquido {
+  background: #fff;
+  border: 1px solid #000;
+  padding: 10px;
+  text-align: right;
+  font-size: 1.1rem;
+  font-weight: bold;
+  margin-bottom: 15px;
+}
+
+.holerite-footer {
+  border-top: 1px dashed #000;
+  padding-top: 10px;
+  font-size: 0.75rem;
+  color: #4b5563;
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.holerite-print-header {
+  text-align: center;
+  border-bottom: 2px double #000;
+  padding-bottom: 15px;
+  margin-bottom: 20px;
+}
+
+.holerite-print-header h3 {
+  margin: 0;
+  font-size: 1.4rem;
+}
+
+.holerite-print-header p {
+  margin: 5px 0 0;
+}
+
+.folha-holerite {
+  max-width: 700px;
+  margin: 0 auto;
+  padding: 30px;
+  font-family: monospace;
+  border: 2px solid #000;
+  background: #fff;
+}
+
+.holerite-print-meta {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 15px;
+  margin-bottom: 20px;
+  font-size: 0.95rem;
+}
+
+.holerite-print-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 30px;
+  min-width: auto;
+  font-size: 0.95rem;
+}
+
+.holerite-print-headrow {
+  border-bottom: 1px solid #000;
+  border-top: 1px solid #000;
+}
+
+.holerite-print-row {
+  border-bottom: 1px dashed #ccc;
+}
+
+.holerite-print-table th {
+  background: none;
+  padding: 8px 0;
+}
+
+.cell-padding {
+  padding: 10px 0;
+}
+
+.holerite-print-totalizer {
+  border-top: 1px solid #000;
+  padding-top: 15px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  font-size: 1rem;
+  margin-bottom: 15px;
+  gap: 12px;
+}
+
+.holerite-print-liquid {
+  padding: 15px;
+  background: #f3f4f6;
+  border: 1px solid #000;
+  text-align: right;
+  font-size: 1.15rem;
+  margin-bottom: 20px;
+}
+
+.holerite-print-footer {
+  border-top: 2px double #000;
+  padding-top: 10px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  font-size: 0.85rem;
+  color: #374151;
+  gap: 12px;
+}

@@ -43,25 +43,25 @@ if (!$funcionario) {
 
 <section class="page-header">
     <h2>Editar Funcionário</h2>
-    <a href="?id=funcionarios" class="btn-primary" style="background: var(--muted); text-decoration: none;">Voltar</a>
+    <a href="?id=funcionarios" class="btn-primary btn-primary--muted btn-primary--link">Voltar</a>
 </section>
 
 <section class="table-card">
     <?php if ($erro): ?>
-        <div style="background: #fef2f2; color: var(--danger); border: 1px solid #fca5a5; padding: 10px; border-radius: 8px; margin-bottom: 20px;">
+        <div class="alert-error">
             <?= htmlspecialchars($erro) ?>
         </div>
     <?php endif; ?>
 
-    <form action="?id=funcionario_editar&registro=<?= $registro_id ?>" method="POST" style="max-width: 500px;">
-        <div style="margin-bottom: 16px;">
-            <label style="display: block; margin-bottom: 6px; font-weight: 600;">Nome</label>
-            <input type="text" name="nome" value="<?= htmlspecialchars($funcionario['nome']) ?>" required style="width: 100%; padding: 9px 12px; border: 1px solid var(--line); border-radius: 8px; box-sizing: border-box;">
+    <form action="?id=funcionario_editar&registro=<?= $registro_id ?>" method="POST" class="employee-form">
+        <div class="form-field">
+            <label class="form-label">Nome</label>
+            <input type="text" name="nome" value="<?= htmlspecialchars($funcionario['nome']) ?>" required class="form-control">
         </div>
 
-        <div style="margin-bottom: 16px;">
-            <label style="display: block; margin-bottom: 6px; font-weight: 600;">Cargo</label>
-            <select name="cargo_id" required style="width: 100%; padding: 9px 12px; border: 1px solid var(--line); border-radius: 8px; box-sizing: border-box;">
+        <div class="form-field">
+            <label class="form-label">Cargo</label>
+            <select name="cargo_id" required class="form-control">
                 <?php foreach ($cargos as $cargo): ?>
                     <option value="<?= htmlspecialchars($cargo['id']) ?>" <?= $funcionario['cargo_id'] == $cargo['id'] ? 'selected' : '' ?>>
                         <?= htmlspecialchars($cargo['nome']) ?>
@@ -70,24 +70,24 @@ if (!$funcionario) {
             </select>
         </div>
 
-        <div style="margin-bottom: 16px;">
-            <label style="display: block; margin-bottom: 6px; font-weight: 600;">Salário Base (R$)</label>
-            <input type="number" step="0.01" name="salario_base" value="<?= htmlspecialchars($funcionario['salario_base']) ?>" required style="width: 100%; padding: 9px 12px; border: 1px solid var(--line); border-radius: 8px; box-sizing: border-box;">
+        <div class="form-field">
+            <label class="form-label">Salário Base (R$)</label>
+            <input type="number" step="0.01" name="salario_base" value="<?= htmlspecialchars($funcionario['salario_base']) ?>" required class="form-control">
         </div>
 
-        <div style="margin-bottom: 16px;">
-            <label style="display: block; margin-bottom: 6px; font-weight: 600;">Setor</label>
-            <input type="text" name="setor" value="<?= htmlspecialchars($funcionario['setor']) ?>" required style="width: 100%; padding: 9px 12px; border: 1px solid var(--line); border-radius: 8px; box-sizing: border-box;">
+        <div class="form-field">
+            <label class="form-label">Setor</label>
+            <input type="text" name="setor" value="<?= htmlspecialchars($funcionario['setor']) ?>" required class="form-control">
         </div>
 
-        <div style="margin-bottom: 16px;">
-            <label style="display: block; margin-bottom: 6px; font-weight: 600;">Data de Contratação</label>
-            <input type="date" name="data_contratacao" value="<?= htmlspecialchars($funcionario['data_contratacao']) ?>" required style="width: 100%; padding: 9px 12px; border: 1px solid var(--line); border-radius: 8px; box-sizing: border-box;">
+        <div class="form-field">
+            <label class="form-label">Data de Contratação</label>
+            <input type="date" name="data_contratacao" value="<?= htmlspecialchars($funcionario['data_contratacao']) ?>" required class="form-control">
         </div>
 
-        <div style="margin-bottom: 24px;">
-            <label style="display: block; margin-bottom: 6px; font-weight: 600;">Status</label>
-            <select name="status" style="width: 100%; padding: 9px 12px; border: 1px solid var(--line); border-radius: 8px; box-sizing: border-box;">
+        <div class="form-field form-field--last">
+            <label class="form-label">Status</label>
+            <select name="status" class="form-control">
                 <option value="Ativo" <?= $funcionario['status'] === 'Ativo' ? 'selected' : '' ?>>Ativo</option>
                 <option value="Férias" <?= $funcionario['status'] === 'Férias' ? 'selected' : '' ?>>Férias</option>
             </select>

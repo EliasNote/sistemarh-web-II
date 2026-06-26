@@ -44,154 +44,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 }
 ?>
 
-<style>
-/* Estilização moderna e responsiva exclusiva para a simulação de folha */
-.folha-grid {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 24px;
-    margin-top: 20px;
-}
-
-@media (min-width: 992px) {
-    .folha-grid {
-        grid-template-columns: 1.2fr 0.8fr;
-    }
-}
-
-.panel-card {
-    background: #fff;
-    border: 1px solid #e5e7eb;
-    border-radius: 12px;
-    padding: 24px;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
-}
-
-.panel-title {
-    font-size: 1.1rem;
-    font-weight: 600;
-    color: #111827;
-    margin-top: 0;
-    margin-bottom: 20px;
-    border-bottom: 1px solid #f3f4f6;
-    padding-bottom: 10px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.form-row {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 16px;
-    margin-bottom: 16px;
-}
-
-.field-group {
-    margin-bottom: 16px;
-}
-
-.field-group label {
-    display: block;
-    margin-bottom: 6px;
-    font-size: 0.9rem;
-    font-weight: 600;
-    color: #374151;
-}
-
-.field-group input, .field-group select {
-    width: 100%;
-    padding: 10px 12px;
-    border: 1px solid #d1d5db;
-    border-radius: 8px;
-    box-sizing: border-box;
-    font-family: inherit;
-    font-size: 0.95rem;
-    outline: none;
-    transition: border-color 0.15s ease;
-}
-
-.field-group input:focus, .field-group select:focus {
-    border-color: var(--primary);
-}
-
-/* Espelho do Holerite Interativo */
-.holerite-preview {
-    background: #f9fafb;
-    border: 2px dashed #d1d5db;
-    border-radius: 8px;
-    padding: 20px;
-    font-family: monospace;
-}
-
-.holerite-header {
-    text-align: center;
-    border-bottom: 1px solid #000;
-    padding-bottom: 10px;
-    margin-bottom: 15px;
-}
-
-.holerite-meta {
-    display: flex;
-    justify-content: space-between;
-    font-size: 0.85rem;
-    margin-bottom: 15px;
-    border-bottom: 1px dashed #ccc;
-    padding-bottom: 10px;
-}
-
-.holerite-table {
-    width: 100%;
-    font-size: 0.85rem;
-    margin-bottom: 15px;
-}
-
-.holerite-table th {
-    text-align: left;
-    border-bottom: 1px solid #000;
-    padding: 4px 0;
-}
-
-.holerite-table td {
-    padding: 6px 0;
-}
-
-.holerite-totalizer {
-    border-top: 1px solid #000;
-    padding-top: 10px;
-    font-size: 0.9rem;
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 15px;
-}
-
-.holerite-liquido {
-    background: #fff;
-    border: 1px solid #000;
-    padding: 10px;
-    text-align: right;
-    font-size: 1.1rem;
-    font-weight: bold;
-    margin-bottom: 15px;
-}
-
-.holerite-footer {
-    border-top: 1px dashed #000;
-    padding-top: 10px;
-    font-size: 0.75rem;
-    color: #4b5563;
-    display: flex;
-    justify-content: space-between;
-}
-</style>
-
 <section class="page-header">
     <h2>Simular Nova Folha</h2>
-    <a href="?id=folha" class="btn-primary" style="background: var(--muted); text-decoration: none;">Voltar</a>
+    <a href="?id=folha" class="btn-primary btn-primary--muted btn-primary--link">Voltar</a>
 </section>
 
 <?php if ($erro): ?>
-    <div style="background: #fef2f2; color: var(--danger); border: 1px solid #fca5a5; padding: 12px; border-radius: 8px; margin-bottom: 20px;">
+    <div class="alert-error">
         <?= htmlspecialchars($erro) ?>
     </div>
 <?php endif; ?>
@@ -203,8 +62,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         
         <form action="?id=folha_gerar" method="POST">
             <div class="field-group">
-                <label>Funcionário</label>
-                <select name="funcionario_id" id="funcionario_id" required onchange="carregarDadosSalario()">
+                <label class="form-label">Funcionário</label>
+                <select name="funcionario_id" id="funcionario_id" required onchange="carregarDadosSalario()" class="form-control">
                     <option value="">Selecione o colaborador...</option>
                     <?php foreach ($funcionarios as $func): ?>
                         <option value="<?= htmlspecialchars($func['id']) ?>" data-salario="<?= htmlspecialchars($func['salario_base']) ?>">
@@ -216,16 +75,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
             <div class="form-row">
                 <div class="field-group">
-                    <label>Mês de Referência</label>
-                    <select name="mes" id="mes" required onchange="atualizarPreviewMeta()">
+                    <label class="form-label">Mês de Referência</label>
+                    <select name="mes" id="mes" required onchange="atualizarPreviewMeta()" class="form-control">
                         <?php for ($m = 1; $m <= 12; $m++): ?>
                             <option value="<?= $m ?>" <?= date('n') == $m ? 'selected' : '' ?>><?= sprintf('%02d', $m) ?></option>
                         <?php endfor; ?>
                     </select>
                 </div>
                 <div class="field-group">
-                    <label>Ano de Referência</label>
-                    <select name="ano" id="ano" required onchange="atualizarPreviewMeta()">
+                    <label class="form-label">Ano de Referência</label>
+                    <select name="ano" id="ano" required onchange="atualizarPreviewMeta()" class="form-control">
                         <?php for ($y = date('Y') - 1; $y <= date('Y') + 2; $y++): ?>
                             <option value="<?= $y ?>" <?= date('Y') == $y ? 'selected' : '' ?>><?= $y ?></option>
                         <?php endfor; ?>
@@ -233,46 +92,46 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 </div>
             </div>
 
-            <h4 style="margin: 24px 0 12px; color: #4b5563; font-size: 0.95rem; border-bottom: 1px solid #f3f4f6; padding-bottom: 4px;">Rubricas e Lançamentos</h4>
+            <h4 class="section-title">Rubricas e Lançamentos</h4>
 
             <div class="form-row">
                 <div class="field-group">
-                    <label>Salário Bruto (R$)</label>
-                    <input type="number" step="0.01" name="salario_bruto" id="salario_bruto" required oninput="calcularImpostos()">
+                    <label class="form-label">Salário Bruto (R$)</label>
+                    <input type="number" step="0.01" name="salario_bruto" id="salario_bruto" required oninput="calcularImpostos()" class="form-control">
                 </div>
                 <div class="field-group">
                     <!-- FGTS agora é totalmente editável -->
-                    <label>Fundo de Garantia - FGTS (R$)</label>
-                    <input type="number" step="0.01" name="valor_fgts" id="valor_fgts" required oninput="atualizarPreviewCompleto()">
+                    <label class="form-label">Fundo de Garantia - FGTS (R$)</label>
+                    <input type="number" step="0.01" name="valor_fgts" id="valor_fgts" required oninput="atualizarPreviewCompleto()" class="form-control">
                 </div>
             </div>
 
             <div class="form-row">
                 <div class="field-group">
                     <!-- INSS agora é editável -->
-                    <label>Desconto INSS (R$)</label>
-                    <input type="number" step="0.01" name="desconto_inss" id="desconto_inss" required oninput="atualizarPreviewCompleto()">
+                    <label class="form-label">Desconto INSS (R$)</label>
+                    <input type="number" step="0.01" name="desconto_inss" id="desconto_inss" required oninput="atualizarPreviewCompleto()" class="form-control">
                 </div>
                 <div class="field-group">
                     <!-- IRPF agora é editável -->
-                    <label>Desconto IRPF (R$)</label>
-                    <input type="number" step="0.01" name="desconto_irpf" id="desconto_irpf" required oninput="atualizarPreviewCompleto()">
+                    <label class="form-label">Desconto IRPF (R$)</label>
+                    <input type="number" step="0.01" name="desconto_irpf" id="desconto_irpf" required oninput="atualizarPreviewCompleto()" class="form-control">
                 </div>
             </div>
 
             <div class="field-group">
                 <!-- Outros descontos não é mais obrigatório -->
-                <label>Outros Descontos Adicionais (Opcional)</label>
-                <input type="number" step="0.01" name="outros_descontos" id="outros_descontos" placeholder="0.00" oninput="atualizarPreviewCompleto()">
+                <label class="form-label">Outros Descontos Adicionais (Opcional)</label>
+                <input type="number" step="0.01" name="outros_descontos" id="outros_descontos" placeholder="0.00" oninput="atualizarPreviewCompleto()" class="form-control">
             </div>
 
-            <button type="submit" class="btn-primary" style="width: 100%; padding: 12px; font-size: 1rem; margin-top: 10px;">Confirmar e Gerar Folha</button>
+            <button type="submit" class="btn-primary folha-submit">Confirmar e Gerar Folha</button>
         </form>
     </div>
 
     <!-- Painel de espelho holerite interativo -->
-    <div class="panel-card" style="align-self: start;">
-        <h3 class="panel-title">Prévia do Holerite <span style="font-size: 0.75rem; background: #e0f2fe; color: #0369a1; padding: 4px 8px; border-radius: 99px;">Atualização Automática</span></h3>
+    <div class="panel-card panel-card--preview">
+        <h3 class="panel-title">Prévia do Holerite <span class="badge-info">Atualização Automática</span></h3>
         
         <div class="holerite-preview">
             <div class="holerite-header">
@@ -284,7 +143,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <div>
                     <strong>Nome:</strong> <span id="prev_nome">Selecione um funcionário</span>
                 </div>
-                <div style="text-align: right;">
+                <div class="text-right">
                     <strong>Competência:</strong> <span id="prev_competencia">--/----</span>
                 </div>
             </div>
@@ -292,38 +151,38 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <table class="holerite-table">
                 <thead>
                     <tr>
-                        <th style="width: 50%;">Descrição</th>
-                        <th style="text-align: right; width: 25%;">Proventos</th>
-                        <th style="text-align: right; width: 25%;">Descontos</th>
+                        <th class="col-description">Descrição</th>
+                        <th class="col-money">Proventos</th>
+                        <th class="col-money">Descontos</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr>
                         <td>Salário Base</td>
-                        <td style="text-align: right;" id="row_bruto">R$ 0,00</td>
-                        <td style="text-align: right;">-</td>
+                        <td class="text-right" id="row_bruto">R$ 0,00</td>
+                        <td class="text-right">-</td>
                     </tr>
                     <tr>
                         <td>Previdência Social (INSS)</td>
-                        <td style="text-align: right;">-</td>
-                        <td style="text-align: right; color: #b91c1c;" id="row_inss">R$ 0,00</td>
+                        <td class="text-right">-</td>
+                        <td class="text-right text-danger" id="row_inss">R$ 0,00</td>
                     </tr>
                     <tr>
                         <td>Imposto de Renda (IRPF)</td>
-                        <td style="text-align: right;">-</td>
-                        <td style="text-align: right; color: #b91c1c;" id="row_irpf">R$ 0,00</td>
+                        <td class="text-right">-</td>
+                        <td class="text-right text-danger" id="row_irpf">R$ 0,00</td>
                     </tr>
-                    <tr id="row_outros_container" style="display: none;">
+                    <tr id="row_outros_container" class="hidden-row">
                         <td>Descontos Diversos</td>
-                        <td style="text-align: right;">-</td>
-                        <td style="text-align: right; color: #b91c1c;" id="row_outros">R$ 0,00</td>
+                        <td class="text-right">-</td>
+                        <td class="text-right text-danger" id="row_outros">R$ 0,00</td>
                     </tr>
                 </tbody>
             </table>
 
             <div class="holerite-totalizer">
-                <div>Total Vencimentos: <span id="prev_vencimentos" style="font-weight: bold;">R$ 0,00</span></div>
-                <div style="text-align: right;">Total Descontos: <span id="prev_descontos" style="font-weight: bold; color: #b91c1c;">R$ 0,00</span></div>
+                <div>Total Vencimentos: <span id="prev_vencimentos" class="font-bold">R$ 0,00</span></div>
+                <div class="text-right">Total Descontos: <span id="prev_descontos" class="font-bold text-danger">R$ 0,00</span></div>
             </div>
 
             <div class="holerite-liquido">
@@ -332,7 +191,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
             <div class="holerite-footer">
                 <div>Base FGTS: <span id="prev_base_fgts">R$ 0,00</span></div>
-                <div style="text-align: right;">Depósito FGTS (8%): <span id="prev_valor_fgts">R$ 0,00</span></div>
+                <div class="text-right">Depósito FGTS (8%): <span id="prev_valor_fgts">R$ 0,00</span></div>
             </div>
         </div>
     </div>
